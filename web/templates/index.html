@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="uk-height-1-1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SGL Plate Control</title>
+    <link rel="icon" href="img/favicon.ico">
+    <!-- CSS FILES -->
+    <link rel="stylesheet" type="text/css" href="css/uikit.css">
+</head>
+<body class="uk-height-1-1">
+<div class="uk-flex uk-flex-center uk-flex-middle">
+  <div class="uk-position-bottom-center uk-position-small">
+    <div class="uk-width-1-1 uk-text-center">
+      <a href="{{ url_for('wifi') }}">
+        <button class="uk-button uk-button-link uk-button-small uk-margin-small uk-text-small" style="text-transform: none;"><span uk-icon="icon: lock"></span>Connect plate to local WiFi</button>
+      </a>
+    </div>
+      <span class="uk-text-small uk-text-muted">Plate control - Built by <a href="http://www.smartgastronomylab.be" title="Smart Gastronomy Lab" target="_blank" data-uk-tooltip>Smart Gastronomy Lab</a></span>
+    </div>
+    <div class="uk-width-large uk-padding-small">
+        <div class="uk-width-1-1 uk-text-center">
+            <span class="" uk-icon="icon: world; ratio: 5"></span>
+            <p class="uk-text-large">{{ plate }}</p>
+        </div>
+
+        <div class="uk-margin">
+          <div class="uk-flex uk-flex-center uk-width-1-1">
+            <a href="#">
+              <button class="uk-button uk-button-primary uk-button-large uk-margin-small-right uk-text-large" style="text-transform: none;"><span uk-icon="icon: lock"></span>Start</button>
+            </a>
+            <a href="#">
+              <button class="uk-button uk-button-danger uk-button-large uk-margin-small-left uk-text-large" style="text-transform: none;"><span uk-icon="icon: lock"></span>Stop</button>
+            </a>
+          </div>
+        </div>
+	<div class="uk-margin">
+          <div class="uk-width-1-1">
+	  </div>
+	</div>
+    </div>
+</div>
+
+<!-- JS FILES -->
+<script src="js/uikit.js"></script>
+<script src="js/uikit-icons.js"></script>
+
+</body>
+</html>
+
+
