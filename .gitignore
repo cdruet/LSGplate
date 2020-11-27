@@ -138,6 +138,11 @@ _olds/
 logs/
 *.tar
 
+# Emacs specifics
+\#*#
+.#*
+
+
 # Apple specifics
 # General
 .DS_Store

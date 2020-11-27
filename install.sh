@@ -9,7 +9,9 @@ sudo apt update
 sudo apt install python3-pip
 sudo apt install netatalk
 sudo apt install comitup
-sudo pip3 install pycairo
+sudo apt install python3-systemd
+sudo apt install python3-serial
+sudo pip3 install pycairo secrets shortuuid serial matplotlib
 
 
 sudo (echo "denyinterfaces wlan0" >> /etc/dhcpcd.conf)
@@ -20,5 +22,9 @@ sudo sed -i 's/# ap_password: supersecretpassword/ap_password: LSGandSGL/g' /etc
 
 sudo sed -i 's/raspberrypi/SGLplate1/g' /etc/hostname
 sudo sed -i 's/raspberrypi/SGLplate1/g' /etc/hosts
+
+sudo mkdir /var/lib/sglplate
+sudo mkdir /usr/share/sglplate
+
 
 

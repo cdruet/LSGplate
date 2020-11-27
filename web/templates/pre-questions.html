@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr" Class="uk-height-1-1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quelques questions sur le menu du jour</title>
+  <link rel="icon" href="{{ url_for('favicon') }}">
+  <!-- CSS FILES -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('send_css', path = 'uikit.css') }}">
+</head>
+<body class="uk-height-1-1">
+  <div class="uk-flex uk-flex-center uk-flex-middle">
+    <div class="uk-position-bottom-center uk-position-small">
+      <span class="uk-text-small uk-text-muted">Plate control - Built by <a href="http://www.smartgastronomylab.be" title="Smart Gastronomy Lab" target="_blank" data-uk-tooltip>Smart Gastronomy Lab</a></span>
+    </div>
+    <div class="uk-width-large uk-padding-small">
+      <div class="uk-width-1-1 uk-text-center">
+        <span class="" uk-icon="icon: world; ratio: 5"></span>
+        <p class="uk-text-large">Quelques questions...</p>
+      </div>
+      
+      <div class="uk-width-1-1">
+        <form action="{{ url_for('record_answers_pre', id=id, run_id=run_id) }}" method="POST">
+          <fieldset class="uk-fieldset">
+            
+            <div class="uk-margin">
+              <label class="uk-form-label" for="fullname">Votre nom</label>
+              <input class="uk-input" type="text" placeholder="p.e. Jules Verne" id="fullname" name="fullname" required>
+            </div>
+            
+            <div class="uk-margin-small">
+              <label class="uk-form-label" for="gender">Genre</label>
+              <select class="uk-select uk-form-small" id="gender" name="gender" required>
+                <option>Femme</option>
+                <option>Homme</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="uk-margin-small uk-form-horizontal">
+              <label class="uk-form-label" for="age">Votre âge</label>
+              <input class="uk-input uk-width-1-2 uk-form-small" type="text" placeholder="p.e. 25" id="age" name="age" required>
+            </div>
+            
+            <div class="uk-margin-small uk-form-horizontal">
+              <label class="uk-form-label" for="weight">Votre poids</label>
+              <input class="uk-input uk-width-1-2 uk-form-small" type="text" placeholder="p.e. 75.5" id="weight" name="weight" required>
+            </div>
+
+            <div class="uk-margin">
+              <label class="uk-form-label" for="hunger">Avez-vous faim ?</label>
+              <select class="uk-select uk-form-small" id="hunger" name="hunger" required>
+                <option>J'ai une faim de loup</option>
+                <option>J'ai bon appétit</option>
+                <option>Je vais manger normalement</option>
+                <option>Je n'ai pas faim</option>
+              </select>
+            </div>
+            
+            <div class="uk-margin-small">
+              <label class="uk-form-label" for="meal">Votre plat est-il appétissant ?</label>
+              <select class="uk-select uk-form-small" id="meal" name="meal" required>
+                <option>Très appétissant</option>
+                <option>Appétissant</option>
+                <option>Indifférent</option>
+                <option>Peu appétissant</option>
+                <option>Limite répugnant</option>
+              </select>
+            </div>
+            
+            <div class="uk-margin uk-text-center">
+              <button type="submit" value="Record" class="uk-button uk-button-primary uk-width-1-2">Enregistrer</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JS FILES -->
+<script src="{{ url_for('send_js', path='uikit.js') }}"></script>
+<script src="{{ url_for('send_js', path='uikit-icons.js') }}"></script>
+
+</body>
+</html>
+
+

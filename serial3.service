@@ -1,0 +1,16 @@
+[Unit]
+Description=SGL Plate Service
+After=multi-user.target
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+WorkingDirectory=/usr/share/sglplate
+User=root
+Type=idle
+ExecStart=/usr/bin/python3 /usr/share/sglplate/serial3.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

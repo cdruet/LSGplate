@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr" class="uk-height-1-1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Encore quelques questions sur le repas</title>
+  <link rel="icon" href="{{ url_for('favicon') }}">
+  <!-- CSS FILES -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('send_css', path = 'uikit.css') }}">
+</head>
+<body class="uk-height-1-1">
+  <div class="uk-flex uk-flex-center uk-flex-middle">
+    <div class="uk-position-bottom-center uk-position-small">
+      <span class="uk-text-small uk-text-muted">Plate control - Built by <a href="http://www.smartgastronomylab.be" title="Smart Gastronomy Lab" target="_blank" data-uk-tooltip>Smart Gastronomy Lab</a></span>
+    </div>
+    <div class="uk-width-large uk-padding-small">
+      <div class="uk-width-1-1 uk-text-center">
+        <span class="" uk-icon="icon: world; ratio: 5"></span>
+        <p class="uk-text-large">Encore quelques questions...</p>
+      </div>
+      
+      <div class="uk-width-1-1">
+        <form action="{{ url_for('record_answers_post', id=id, run_id=run_id) }}" method="POST">
+          <fieldset class="uk-fieldset">
+            
+            <!-- <div class="uk-margin"> -->
+            <!--   <label class="uk-form-label" for="experience">Comment décririez-vous votre expérience ?</label> -->
+            <!--   <input class="uk-input uk-form-small" type="text" placeholder="p.e. Je reviendrai volontiers" id="experience" name="experience"> -->
+            <!-- </div> -->
+            
+            <div class="uk-margin-small">
+              <label class="uk-form-label" for="cooking">Comment était la cuisson ?</label>
+              <select class="uk-select uk-form-small" id="cooking" name="cooking" required>
+                <option>Bonne</option>
+                <option>Ordinaire</option>
+                <option>Pas terrible</option>
+              </select>
+            </div>
+
+            <div class="uk-margin-small">
+              <label class="uk-form-label" for="mash">Et la consistance de la purée ?</label>
+              <select class="uk-select uk-form-small" id="mash" name="mash" required>
+                <option>Bonne</option>
+                <option>Ordinaire</option>
+                <option>Pas terrible</option>
+              </select>
+            </div>
+
+            <div class="uk-margin-small">
+              <label class="uk-form-label" for="participants">Combien de participants au repas ?</label>
+              <input class="uk-input uk-form-small" type="text" placeholder="p.e. 25" id="participants" name="participants" required>
+            </div>
+            
+            <div class="uk-margin">
+              <label class="uk-form-label" for="room">Où avez-vous mangé ?</label>
+              <select class="uk-select uk-form-small" id="room" name="room" required>
+                <option>Cuisine</option>
+                <option>Salle à manger</option>
+                <option>Salon</option>
+                <option>Devant la TV</option>
+              </select>
+            </div>
+            
+            <div class="uk-margin">
+              <label class="uk-form-label" for="mood">Comment était l'ambiance ?</label>
+              <select class="uk-select uk-form-small" id="mood" name="mood" required>
+                <option>Joyeuse</option>
+                <option>Normale</option>
+                <option>Studieuse</option>
+                <option>Triste</option>
+                <option>Tendue</option>
+              </select>
+            </div>
+            
+            <div class="uk-margin-small">
+              <label class="uk-form-label" for="temperature">Quelle était la température dans la pièce ?</label>
+              <input class="uk-range" type="range" value="5" min="1" max="10" step="1" id="temperature" name="temperature" required>
+            </div>
+            
+            <div class="uk-margin-small">
+              <label class="uk-form-label" for="light">Et au niveau luminosité (sombre -> clair)?</label>
+              <input class="uk-range" type="range" value="5" min="1" max="10" step="1" id="light" name="light" required>
+            </div>
+            
+            <div class="uk-margin uk-text-center">
+              <button type="submit" value="Record" class="uk-button uk-button-primary uk-width-1-2">Enregistrer</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JS FILES -->
+<script src="{{ url_for('send_js', path='uikit.js') }}"></script>
+<script src="{{ url_for('send_js', path='uikit-icons.js') }}"></script>
+
+</body>
+</html>
+
+
