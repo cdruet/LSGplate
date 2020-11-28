@@ -1,13 +1,11 @@
 #!/bin/bash
 
-plate = $1
-
 # ***** Raspberry pre-configuration
 sudo apt install netatalk
 
 # ***** Comitup configuration/installation
 # Configuring APT to get the latest release and automaticaly update
-sudo sh -c "echo 'db http://davesteele.github.io/comitup/repo comitup main' >> /etc/apt/sources.list"
+sudo sh -c "echo 'deb http://davesteele.github.io/comitup/repo comitup main' >> /etc/apt/sources.list"
 
 wget https://davesteele.github.io/key-366150CE.pub.txt
 sudo apt-key add key-366150CE.pub.txt
@@ -25,7 +23,7 @@ sudo pip3 install pycairo
 # Configuring
 sudo sh -c "echo 'denyinterfaces wlan0' >> /etc/dhcpcd.conf"
 sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf_orig
-sudo sed -i "s/# ap_name: comitup-<nnn>/ap_name: $plate-<nnnn>/g" /etc/comitup.conf
+sudo sed -i "s/# ap_name: comitup-<nnn>/ap_name: $1-<nnnn>/g" /etc/comitup.conf
 sudo sed -i 's/# ap_password: supersecretpassword/ap_password: LSGandSGL/g' /etc/comitup.conf
 sudo sed -i 's/# web_service: httpd.service/web_service: comitup-web.service/g' /etc/comitup.conf
 
@@ -57,7 +55,7 @@ sudo chown -R pi.pi /home/pi/data
 
 # Amending and configuring comitup in a different way and
 # deploying LSG plate
-sudo sed -i "s/plate_name: LSGplate/plate_name: $plate/g" /etc/comitup.conf
+sudo sed -i "s/plate_name: LSGplate/plate_name: $1/g" /etc/comitup.conf
 sudo cp /home/pi/lsgplate/lsgplate.conf /etc/lsgplate.conf
 sudo cp /home/pi/lsgplate/serial3.py /usr/share/lsgplate/serial3.py
 sudo cp /home/pi/lsgplate/serial3.service /lib/systemd/system/serial3.service
@@ -76,7 +74,7 @@ sudo systemctl daemon-reload
 
 
 # ***** Raspberry post-configuration (before reboot)
-sudo sed -i "s/raspberrypi/$plate/g" /etc/hostname
-sudo sed -i "s/raspberrypi/$plate/g" /etc/hosts
+sudo sed -i "s/raspberrypi/$1/g" /etc/hostname
+sudo sed -i "s/raspberrypi/$1/g" /etc/hosts
 
 
