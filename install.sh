@@ -3,8 +3,6 @@
 # Requirement:
 # curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/install.sh
 
-sudo raspi-config --expand-rootfs
-
 sudo sed 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/g' /etc/locale.gen
 sudo sed 's/# fr_BE.UTF-8 UTF-8/fr_BE.UTF-8 UTF-8/g' /etc/locale.gen
 sudo locale-gen en_GB.UTF-8
@@ -85,6 +83,8 @@ sudo systemctl daemon-reload
 # ***** Raspberry post-configuration (before reboot)
 sudo sed -i "s/raspberrypi/$1/g" /etc/hostname
 sudo sed -i "s/raspberrypi/$1/g" /etc/hosts
+
+sudo raspi-config --expand-rootfs
 
 echo "If everything ran smoothly and if you feel ready,\nreboot now [sudo reboot]"
 
