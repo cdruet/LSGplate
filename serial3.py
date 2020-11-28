@@ -8,7 +8,7 @@ import signal
 import time
 import logging
 from logging.handlers import TimedRotatingFileHandler
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 RUN_PATH = "/home/pi/data/.serial3rc"
 LOG_PATH = "/home/pi/log/serial3.log"

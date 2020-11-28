@@ -1,5 +1,12 @@
 #!/bin/bash
 
+sudo raspi-config --expand-rootfs
+
+sudo sed 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/g' /etc/locale.gen
+sudo sed 's/# fr_BE.UTF-8 UTF-8/fr_BE.UTF-8 UTF-8/g' /etc/locale.gen
+sudo locale-gen en_GB.UTF-8
+sudo update-locale en_GB.UTF-8
+
 # Requirement:
 # git clone https://github.com/cdruet/LSGplate.git /home/pi/lsgplate
 
@@ -14,7 +21,7 @@ wget https://davesteele.github.io/key-366150CE.pub.txt
 sudo apt-key add key-366150CE.pub.txt
 
 sudo apt update
-sudo apt upgrade
+# sudo LANGUAGE=$LANG LC_ALL=$LANG apt upgrade -y
 
 # Installing
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y comitup
@@ -40,7 +47,7 @@ sudo iw wlan0 set power_save off
 # Installing required python packages and libraries
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-systemd
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-serial
-sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-matplotlib
+# sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-matplotlib
 sudo LANGUAGE=$LANG LC_ALL=$LANG pip3 install pyserial secrets shortuuid
 
 # Cloning the monitoring tool (just in case)
@@ -76,5 +83,7 @@ sudo systemctl daemon-reload
 # ***** Raspberry post-configuration (before reboot)
 sudo sed -i "s/raspberrypi/$1/g" /etc/hostname
 sudo sed -i "s/raspberrypi/$1/g" /etc/hosts
+
+echo "If everything ran smoothly and if you feel ready, reboot now [sudo reboot]"
 
 
