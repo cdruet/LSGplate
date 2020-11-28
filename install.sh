@@ -86,6 +86,7 @@ sudo sed -i "s/raspberrypi/$1/g" /etc/hosts
 
 sudo raspi-config --expand-rootfs
 
-echo "If everything ran smoothly and if you feel ready,\nreboot now [sudo reboot]"
+echo "If everything ran smoothly and if you feel ready,"
+echo "reboot now [sudo reboot]"
 
 
