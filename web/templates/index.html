@@ -14,42 +14,47 @@
   <div class="uk-position-bottom-center uk-position-small">
     <div class="uk-width-1-1 uk-text-center">
       <a href="{{ url_for('wifi') }}">
-        <button class="uk-button uk-button-link uk-button-small uk-margin-small uk-text-small" style="text-transform: none;"><span uk-icon="icon: lock"></span>Sélection d'un WiFi local</button>
+        <button class="uk-button uk-button-link uk-button-small uk-margin-small uk-text-small" style="text-transform: none;">
+          <span uk-icon="icon: lock"></span>Sélection d'un WiFi local
+        </button>
       </a>
     </div>
+    <div class="uk-width-1-1 uk-text-center">
       <span class="uk-text-small uk-text-muted">Le Plateau LSG - Elaboré par le <a href="http://www.smartgastronomylab.be" title="Smart Gastronomy Lab" target="_blank" data-uk-tooltip>Laboratoire de Sciences Gastronomiques</a></span>
     </div>
-    <div class="uk-width-large uk-padding-small">
-        <div class="uk-width-1-1 uk-text-center">
-            <span class="" uk-icon="icon: world; ratio: 5"></span>
-            <p class="uk-text-large">{{ plate }} ({% if status == 'running' %}ON{% else %}OFF{% endif %})</p>
-        </div>
-
-        <div class="uk-margin">
-          <div class="uk-flex uk-flex-center uk-width-1-1">
-            <a href="{{ url_for('start_device', id=id) }}">
-              <button class="uk-button uk-button-primary uk-button-large uk-margin-small-right uk-text-large" style="text-transform: none;" {% if status != 'stopped' %}disabled{% endif %}>
-                <span uk-icon="icon: lock"></span>Démarrer
-              </button>
-            </a>
-            <a href="{{ url_for('stop_device', id=id) }}">
-              <button class="uk-button uk-button-danger uk-button-large uk-margin-small-left uk-text-large" style="text-transform: none;" {% if status != 'running' %}disabled{% endif %}>
-                <span uk-icon="icon: lock"></span>Arrêter</button>
-            </a>
-          </div>
-        </div>
-        {% if status == 'unknown' %}
-	<div class="uk-margin uk-margin-large-top">
-          <div class="uk-flex uk-flex-center uk-width-1-1">
-            <a href="{{ url_for('kill_device', id=id) }}">
-              <button class="uk-button uk-button-danger uk-button-large uk-margin-large" style="text-transform: none;">
-                <span uk-icon="icon: lock"></span>Forcer l'arrêt
-              </button>
-            </a>
-	  </div>
-	</div>
-        {% endif %}
+  </div>
+  
+  <div class="uk-width-large uk-padding-small">
+    <div class="uk-width-1-1 uk-text-center">
+      <span class="" uk-icon="icon: world; ratio: 5"></span>
+      <p class="uk-text-large">{{ plate }} ({% if status == 'running' %}ON{% else %}OFF{% endif %})</p>
     </div>
+    
+    <div class="uk-margin">
+      <div class="uk-flex uk-flex-center uk-width-1-1">
+        <a href="{{ url_for('start_device', id=id) }}">
+          <button class="uk-button uk-button-primary uk-button-large uk-margin-small-right uk-text-large" style="text-transform: none;" {% if status != 'stopped' %}disabled{% endif %}>
+            <span uk-icon="icon: lock"></span>Démarrer
+          </button>
+        </a>
+        <a href="{{ url_for('stop_device', id=id) }}">
+          <button class="uk-button uk-button-danger uk-button-large uk-margin-small-left uk-text-large" style="text-transform: none;" {% if status != 'running' %}disabled{% endif %}>
+            <span uk-icon="icon: lock"></span>Arrêter</button>
+        </a>
+      </div>
+    </div>
+    {% if status == 'unknown' %}
+    <div class="uk-margin uk-margin-large-top">
+      <div class="uk-flex uk-flex-center uk-width-1-1">
+        <a href="{{ url_for('kill_device', id=id) }}">
+          <button class="uk-button uk-button-danger uk-button-large uk-margin-large" style="text-transform: none;">
+            <span uk-icon="icon: lock"></span>Forcer l'arrêt
+          </button>
+        </a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
 </div>
 
 <!-- JS FILES -->

@@ -84,6 +84,6 @@ sudo systemctl daemon-reload
 sudo sed -i "s/raspberrypi/$1/g" /etc/hostname
 sudo sed -i "s/raspberrypi/$1/g" /etc/hosts
 
-echo "If everything ran smoothly and if you feel ready, reboot now [sudo reboot]"
+echo "If everything ran smoothly and if you feel ready,\nreboot now [sudo reboot]"
 
 
