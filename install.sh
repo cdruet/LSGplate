@@ -1,14 +1,14 @@
 #!/bin/bash
 
+# Requirement:
+# curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/install.sh
+
 sudo raspi-config --expand-rootfs
 
 sudo sed 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/g' /etc/locale.gen
 sudo sed 's/# fr_BE.UTF-8 UTF-8/fr_BE.UTF-8 UTF-8/g' /etc/locale.gen
 sudo locale-gen en_GB.UTF-8
 sudo update-locale en_GB.UTF-8
-
-# Requirement:
-# git clone https://github.com/cdruet/LSGplate.git /home/pi/lsgplate
 
 # ***** Raspberry pre-configuration
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y netatalk
@@ -21,7 +21,7 @@ wget https://davesteele.github.io/key-366150CE.pub.txt
 sudo apt-key add key-366150CE.pub.txt
 
 sudo apt update
-# sudo LANGUAGE=$LANG LC_ALL=$LANG apt upgrade -y
+sudo LANGUAGE=$LANG LC_ALL=$LANG apt upgrade -y
 
 # Installing
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y comitup
@@ -45,12 +45,14 @@ sudo iw wlan0 set power_save off
 
 # ***** LSG plate configuration/installation
 # Installing required python packages and libraries
+sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y git
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-systemd
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-serial
 # sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-matplotlib
 sudo LANGUAGE=$LANG LC_ALL=$LANG pip3 install pyserial secrets shortuuid
 
-# Cloning the monitoring tool (just in case)
+# Cloning
+git clone https://github.com/cdruet/LSGplate.git /home/pi/lsgplate
 # sudo LANGUAGE=$LANG LC_ALL=$LANG git clone https://github.com/simondejaeger/RASPI-P01 /home/pi/monitor
 # sudo LANGUAGE=$LANG LC_ALL=$LANG chown -R pi.pi /home/pi/monitor
 
