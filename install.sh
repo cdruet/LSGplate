@@ -81,8 +81,8 @@ sudo systemctl daemon-reload
 
 
 # ***** Raspberry post-configuration (before reboot)
-sudo sed -i "s/raspberrypi/$1/g" /etc/hostname
-sudo sed -i "s/raspberrypi/$1/g" /etc/hosts
+sudo sed -i "s/$HOSTNAME/$1/g" /etc/hostname
+sudo sed -i "s/$HOSTNAME/$1/g" /etc/hosts
 
 sudo raspi-config --expand-rootfs
 
