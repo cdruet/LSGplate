@@ -11,7 +11,7 @@ Installation
 6. Do the necessary stuff to secure the RasPi (`sudo raspi-config`, change password and...)
 7. `sudo apt update`
 8. `sudo apt install git`
-9. `git clone https://github.com/cdruet/LSGplate.git sglplate`
+9. `git clone https://github.com/cdruet/LSGplate.git lsgplate`
 10. `./sglplate/install.sh <plate name w/o blank>` (e.g. LSGplate01)
 11. If not error ;-) `sudo reboot`
 12. Search for a WiFi names LSGplate01-<nnnn> and connect to it using password LSGandSGL
