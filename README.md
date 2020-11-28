@@ -12,7 +12,7 @@ Installation
 7. `sudo apt update`
 8. `sudo apt install git`
 9. `git clone https://github.com/cdruet/LSGplate.git lsgplate`
-10. `./sglplate/install.sh <plate name w/o blank>` (e.g. LSGplate01)
+10. `./lsgplate/install.sh <plate name w/o blank>` (e.g. LSGplate01)
 11. If not error ;-) `sudo reboot`
 12. Search for a WiFi names LSGplate01-<nnnn> and connect to it using password LSGandSGL
 13. Guess the sequel...
