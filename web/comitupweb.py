@@ -135,7 +135,8 @@ def create_app(log):
             point['ssid_encoded'] = urllib.parse.quote(point['ssid'])
         log.info("wifi.html - {} points".format(len(points)))
         return render_template("wifi.html",
-                               points=points)
+                               points=points,
+                               plate=app.config['PLATE'])
 
     @app.route('/device/<string:id>/start', methods=['GET','POST'])
     def start_device(id):
@@ -238,7 +239,8 @@ def create_app(log):
                                ssid=ssid,
                                encrypted=encrypted,
                                ssid_encoded=ssid_encoded,
-                               mode=mode)
+                               mode=mode,
+                               plate=app.config['PLATE'])
 
     @app.route("/connect", methods=['POST'])
     def connect():
@@ -251,7 +253,8 @@ def create_app(log):
         log.info("connect.html - ssid {0}".format(ssid))
         return render_template("connect.html",
                                ssid=ssid,
-                               password=password)
+                               password=password,
+                               plate=app.config['PLATE'])
 
     @app.route("/img/favicon.ico")
     def favicon():

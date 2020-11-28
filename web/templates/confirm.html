@@ -25,11 +25,12 @@
                     Pousser sur Connecter pour une connexion au réseau {{ ssid }}. <br><br>
 
                     {% if mode == 'single' %}
-                    Ceci va interrompre le hotspot. Connectez-vous au réseau {{ ssid }} pour la suite.<br><br>
+                    Ceci va interrompre le hotspot. Connectez-vous au réseau {{ ssid }} pour la suite.
+                    Et chercher la page {{ plate }}.local ou l'adresse IP du plateau<br><br>
 
                     Si la connexion échoue, ce hotspot sera réactivé.<br><br>
                     {% else %}
-                    Le hotspot va être préservé mais ce service web va s'arrêter.<br><br>
+                    Le hotspot va être préservé et ce service web continuer.<br><br>
 
                     Si la connexion échoue, le service web sera restauré.<br><br>
                     {% endif %}
