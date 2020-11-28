@@ -138,7 +138,7 @@ def main(log, testing=0):
 if __name__ == '__main__':
     log = deflog()
     if os.path.isfile(RUN_PATH):
-        main(log, testing=10)
+        main(log)
         sys.exit(os.EX_OK)
     else:
         log.warning('Serial3 could not run because .serial3rc did not exist')
