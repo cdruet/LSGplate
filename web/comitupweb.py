@@ -35,13 +35,13 @@ from comitup import client as ciu                 # noqa
 
 ciu_client = None
 
-PERSIST_PATH = "/var/lib/sglplate/sglplate.json"
-CONF_PATH = "/etc/sglplate.conf"
-LOG_PATH = "/var/log/comitup-web.log"
+PERSIST_PATH = "/var/lib/lsgplate/lsgplate.json"
+CONF_PATH = "/etc/lsgplate.conf"
+LOG_PATH = "/var/log/lsgplate.log"
 TEMPLATE_PATH = "/usr/share/comitup/web/templates"
 
-SGL_SERVICE = 'serial3.service'
-RUN_PATH = '/home/pi/.serial3rc'
+LSG_SERVICE = 'serial3.service'
+RUN_PATH = '/home/pi/data/.serial3rc'
 OUTPUT_PATH = '/home/pi/data/'
 
 
@@ -68,7 +68,7 @@ def load_data():
     conf = config.Config(
                 CONF_PATH,
                 defaults={
-                    'plate_name': 'SGLplateID',
+                    'plate_name': 'LSGplateID',
                 },
              )
 
@@ -101,7 +101,7 @@ def stop_service(service, log):
 def state_of_service(service, log):
     log.debug("Checking %s web service", service)
     try:
-        if sd_unit_jobs(SGL_SERVICE):
+        if sd_unit_jobs(LSG_SERVICE):
             return 'running'
     except Exception:
         pass
@@ -126,7 +126,7 @@ def create_app(log):
         return render_template('index.html',
                                plate=app.config['PLATE'],
                                id=app.config['PLATE_ID'],
-                               status=state_of_service(SGL_SERVICE, log))
+                               status=state_of_service(LSG_SERVICE, log))
 
     @app.route('/wifi')
     def wifi():
@@ -145,7 +145,7 @@ def create_app(log):
             session['run_id'] = run_id
             with open(RUN_PATH, 'w') as io:
                 io.write(run_id)
-            start_service(SGL_SERVICE, log)
+            start_service(LSG_SERVICE, log)
             return render_template('pre-questions.html',
                                    plate=app.config['PLATE'],
                                    id=app.config['PLATE_ID'],
@@ -163,7 +163,7 @@ def create_app(log):
         meal = request.form['meal'].encode('utf-8')
         with open(os.path.join(OUTPUT_PATH, run_id, 'questionnaire.csv'), 'w') as io:
             io.write('{},{}\n'.format('data', 'value'))
-            io.write('{},{}\n'.format('beginning', datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")))
+            io.write('{},{}\n'.format('beginning', datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
             io.write('{},{}\n'.format('run', run_id))
             io.write('{},{}\n'.format('fullname', fullname.decode('utf-8')))
             io.write('{},{}\n'.format('gender', gender.decode('utf-8')))
@@ -177,7 +177,7 @@ def create_app(log):
     @app.route('/device/<string:id>/stop', methods=['GET','POST'])
     def stop_device(id):
         if id == app.config['PLATE_ID']:
-            stop_service(SGL_SERVICE, log)
+            stop_service(LSG_SERVICE, log)
             os.remove(RUN_PATH)
             return render_template('post-questions.html',
                                    plate=app.config['PLATE'],
@@ -211,9 +211,9 @@ def create_app(log):
 
     @app.route('/device/<string:id>/kill', methods=['GET','POST'])
     def kill_device(id):
-        if id == app.config['PLATE_ID'] and state_of_service(SGL_SERVICE, log) != 'stopped':
-            stop_service(SGL_SERVICE, log)
-            log.warn('{} service has been violently killed'.format(SGL_SERVICE))
+        if id == app.config['PLATE_ID'] and state_of_service(LSG_SERVICE, log) != 'stopped':
+            stop_service(LSG_SERVICE, log)
+            log.warn('{} service has been violently killed'.format(LSG_SERVICE))
         return redirect(url_for('index'))
 
     @app.route('/js/<path:path>')
@@ -266,10 +266,10 @@ def create_app(log):
 
 
 def main():
-    log = deflog('comitup_web')
-    log.info("Starting comitup-web")
-    sgl_log = deflog('sglplate')
-    sgl_log.info("Starting SGL plate")
+    log = deflog('lsgplate')
+    log.info("Starting LSG plate")
+    log.info('LANGUAGE = {}'.format(os.environ.get('LANGUAGE')))
+    log.info('LC_ALL = {}'.format(os.environ.get('LC_ALL')))
 
     global ciu_client
     ciu_client = ciu.CiuClient()

@@ -1,0 +1,18 @@
+[Unit]
+Description=Comitup Web Service
+After=networking.service
+Documentation=man:comitup-web(8)
+
+[Service]
+Environment="LANGUAGE=en_GB.UTF-8" "LC_ALL=en_GB.UTF-8"
+Type=simple
+ExecStart=/usr/sbin/comitup-web
+PrivateTmp=true
+PrivateDevices=yes
+ProtectSystem=full
+MountFlags=slave
+NoNewPrivileges=yes
+Restart=always
+RestartSec=6
+
+[Install]

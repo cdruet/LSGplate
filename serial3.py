@@ -1,6 +1,8 @@
 import os
 import sys
+import re
 import serial
+import serial.tools.list_ports as usb
 import datetime
 import signal
 import time
@@ -8,7 +10,7 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 import matplotlib.pyplot as plt
 
-RUN_PATH = "/home/pi/.serial3rc"
+RUN_PATH = "/home/pi/data/.serial3rc"
 LOG_PATH = "/home/pi/log/serial3.log"
 
 datetimeformat = "%Y-%m-%d_%H:%M:%S"
@@ -82,7 +84,12 @@ def main(log, testing=0):
 
         # texte = input("entrez nom, repas et boisson \n")
         # file.write(texte + '\n')
-        ser = '1\t2\t3\t4\n' if testing else serial.Serial(port='/dev/ttyUSB0',
+        ports = [ p.device for p in usb.comports() if 'USB' in p.device ]
+        if len(ports) > 1:
+            log.warning('Multiple USB devices found. Cannot choose...')
+            sys.exit(1)
+            
+        ser = '1\t2\t3\t4\n' if testing else serial.Serial(port=ports[0],
                                                            baudrate=9600,
                                                            parity=serial.PARITY_NONE,
                                                            stopbits=serial.STOPBITS_ONE,

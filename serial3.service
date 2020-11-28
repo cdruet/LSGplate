@@ -1,14 +1,16 @@
 [Unit]
-Description=SGL Plate Service
+Description=LSG Plate Service
 After=multi-user.target
 StartLimitIntervalSec=500
 StartLimitBurst=5
 
 [Service]
-WorkingDirectory=/usr/share/sglplate
+Environment=LANGUAGE=$LANG
+Environment=LC_ALL=$LANG
+WorkingDirectory=/usr/share/lsgplate
 User=root
 Type=idle
-ExecStart=/usr/bin/python3 /usr/share/sglplate/serial3.py
+ExecStart=/usr/bin/python3 /usr/share/lsgplate/serial3.py
 Restart=on-failure
 RestartSec=5s
 
