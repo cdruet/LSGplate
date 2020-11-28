@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Requirement:
+# git clone https://github.com/cdruet/LSGplate.git /home/pi/lsgplate
+
 export LANGUAGE=$LANG
 export LC_ALL=$LANG
 
@@ -45,10 +48,6 @@ sudo --preserve-env=LANGUAGE --preserve-env=LC_ALL pip3 install pyserial secrets
 # Cloning the monitoring tool (just in case)
 # sudo --preserve-env=LANGUAGE --preserve-env=LC_ALL git clone https://github.com/simondejaeger/RASPI-P01 /home/pi/monitor
 # sudo --preserve-env=LANGUAGE --preserve-env=LC_ALL chown -R pi.pi /home/pi/monitor
-
-# Cloning the LSG plate control system
-sudo --preserve-env=LANGUAGE --preserve-env=LC_ALL git clone https://github.com/cdruet/LSGplate.git /home/pi/lsgplate
-sudo --preserve-env=LANGUAGE --preserve-env=LC_ALL chown -R pi.pi /home/pi/lsgplate
 
 # Preparing folders
 sudo --preserve-env=LANGUAGE --preserve-env=LC_ALL mkdir /var/lib/lsgplate
