@@ -7,7 +7,7 @@ sudo apt install netatalk
 
 # ***** Comitup configuration/installation
 # Configuring APT to get the latest release and automaticaly update
-sudo (echo "db http://davesteele.github.io/comitup/repo comitup main" >> /etc/apt/sources.list)
+sudo sh -c "echo 'db http://davesteele.github.io/comitup/repo comitup main' >> /etc/apt/sources.list"
 
 wget https://davesteele.github.io/key-366150CE.pub.txt
 sudo apt-key add key-366150CE.pub.txt
@@ -23,7 +23,7 @@ sudo apt install python3-pip
 sudo pip3 install pycairo
 
 # Configuring
-sudo (echo "denyinterfaces wlan0" >> /etc/dhcpcd.conf)
+sudo sh -c "echo 'denyinterfaces wlan0' >> /etc/dhcpcd.conf"
 sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf_orig
 sudo sed -i "s/# ap_name: comitup-<nnn>/ap_name: $plate-<nnnn>/g" /etc/comitup.conf
 sudo sed -i 's/# ap_password: supersecretpassword/ap_password: LSGandSGL/g' /etc/comitup.conf
