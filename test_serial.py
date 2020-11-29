@@ -53,7 +53,7 @@ def main(log, testing=0):
 
     # Setting a limit in case the user forgets to stop the run
     item = 0
-    max_item = (30 if testing else 5 * 60 * 60 * 2)
+    max_item = testing or 5 * 60 * 60 * 2
     print('Limiting run to {} steps'.format(max_item))
 
     working = True
