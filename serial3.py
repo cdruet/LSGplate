@@ -110,10 +110,12 @@ def main(log, testing=0):
             log.info('Limiting run to {} seconds or {} minutes or {} hours'.format(int(max_item / 5),
                                                                                    int(max_item / 300),
                                                                                    int(max_item / 18000)))
-        
+
+        file.flush()
         while working:
             x = ser if testing else ser.readline().decode('utf-8')
             file.write(x)
+            file.flush()
 
             if item < max_item:
                 item += 1
