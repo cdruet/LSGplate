@@ -30,8 +30,7 @@ def main(log, testing=0):
     # Identifying the run with its ID and a timestamp
     now = datetime.now()
     utcnow = datetime.utcnow()
-    print('Beginning: {}\nbeginning (UTC): {}\n'.format(now.strftime(datetimeformat),
-                                                        utcnow.strftime(datetimeformat)))
+    print('Beginning: {}\nbeginning (UTC): {}\n'.format(now, utcnow))
 
     # Identifying the USB port where the Arduino is connected
     ports = [ p.device for p in usb.comports() if 'USB' in p.device ]
