@@ -33,7 +33,6 @@ sudo cp /home/pi/lsgplate/web/templates/connect.html /usr/share/comitup/web/temp
 # Refreshing services
 sudo systemctl daemon-reload
 
-echo "If everything ran smoothly and if you feel ready,"
-echo "reboot now [sudo reboot]"
+echo "No need to reboot... normally ;-)"
 
 
