@@ -27,12 +27,11 @@ If the user starts the plate, s&middot;he is asked a few questions that s&middot
     1. `sudo raspi-config`, etc to change the password that you can make very complex considering you can connect w/o entering it thanks to your SSH key (by the way 
 it's called RSA authentication)
 7. `curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/install.sh`
-8. `chmod 744 install.sh`
-9. `install.sh <plate name w/o blank>` (e.g. LSGplate01). Grab a (few) coffee(s) as the procedure takes quite some time (it's setting up the RasPi, locale, filesystem expansion... upgrading packages... installing required packages and librairies... copying the LSG plate files to where they must be... and configuring it)
+8. `install.sh <plate name w/o blank>` (e.g. LSGplate01). Grab a (few) coffee(s) as the procedure takes quite some time (it's setting up the RasPi, locale, filesystem expansion... upgrading packages... installing required packages and librairies... copying the LSG plate files to where they must be... and configuring it)
     1. The RasPi will be renamed
     2. The Hotspot will be name `<plate name w/o blank>-<nnnn>`
     3. The server should be reachable on `<plate name w/o blank>.local`
-10. If not error ;-) `sudo reboot`. A few checks you may want to perform:
+9. If not error ;-) `sudo reboot`. A few checks you may want to perform:
     1. `cat /etc/hostname` should give you `<plate name w/o blank>`
     2. In `/etc/comitup.conf` you should find a line indicating the name of the hotspot as `<plate name w/o blank>-<nnnn>`
     3. Comitup-web
@@ -41,8 +40,8 @@ it's called RSA authentication)
     4. Serial3
         1. `sudo systemctl start serial3` should work
         2. `sudo systemctl status serial3` should report that the service exited because no .serial3rc was found
-11. Search for a WiFi names `<plate name w/o blank>-<nnnn>` and connect to it using password `LSGandSGL`
-10. If not error ;-) `sudo reboot`
+10. Search for a WiFi names `<plate name w/o blank>-<nnnn>` and connect to it using password `LSGandSGL`
+11. If not error ;-) `sudo reboot`
 
 Guess the sequel...
 
@@ -56,5 +55,4 @@ There are 2 files `questionnaire.csv` and `mesures.txt`. Both contain the UUID o
 
 1. `cd lsgplate`
 2. `git pull`
-3. `chmod 744 update.sh`
-4. `./update.sh`
+3. `./update.sh`
