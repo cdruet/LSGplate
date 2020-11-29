@@ -51,3 +51,9 @@ Guess the sequel...
 Answers and measures are written in `/home/pi/data` in a subfolder named by a short UUID. 
 
 There are 2 files `questionnaire.csv` and `mesures.txt`. Both contain the UUID of the run and a timestamp.
+
+## Updating ##
+
+1. `curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/update.sh`
+2. `chmod 744 update.sh`
+3. `update.sh`
