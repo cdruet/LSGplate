@@ -1,10 +1,20 @@
 # LSGplate
-LSG plate - Ez-connect &amp; EZ-control
 
-Installation
-------------
+## Purpose ##
 
-1. Get Raspbian Stretch from 
+### EZ-connect ###
+
+This part is based on [Comitup](https://davesteele.github.io/comitup/). The objective is to start a Hotspot if no known WiFi connection could be established. The user can connect on this hotspot and either control the LSG plate directly or specify a WiFi to connect to.
+
+### EZ-control ###
+
+This part is simply integrated into the Comitup code (quick and not-too-dirty solution). Instead of landing on the Comitup page, the user lands on the plate control page and can either start the plate to record a meal or specify which WiFi to use.
+
+If the user starts the plate, s&middot;he is asked a few questions that s&middot;he can answer while eating. When the user ends the recording, s&middot;he is again asked a few other questions.
+
+## Installation ##
+
+1. Get [Raspbian Stretch Lite - version 2019-04-08](https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2019-04-09/2019-04-08-raspbian-stretch-lite.zip)
 2. Flash a micro-SD card using Etcher
 3. Create an empty file `ssh` in the folder `/boot` of the freshly flashed micro-SD card
 4. Insert the micro-SD card into a RasPi, connect it to an Ethernet cable on a functioning LAN and boot it
@@ -18,11 +28,24 @@ Installation
 it's called RSA authentication)
 7. `curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/install.sh`
 8. `chmod 744 install.sh`
-9. `install.sh <plate name w/o blank>` (e.g. LSGplate01)
+9. `install.sh <plate name w/o blank>` (e.g. LSGplate01). Grab a (few) coffee(s) as the procedure takes quite some time (it's setting up the RasPi, locale, filesystem expansion... upgrading packages... installing required packages and librairies... copying the LSG plate files to where they must be... and configuring it)
     1. The RasPi will be renamed
     2. The Hotspot will be name `<plate name w/o blank>-<nnnn>`
     3. The server should be reachable on `<plate name w/o blank>.local`
-10. If not error ;-) `sudo reboot`
+10. If not error ;-) `sudo reboot`. A few checks you may want to perform:
+    1. `cat /etc/hostname` should give you `<plate name w/o blank>`
+    2. In `/etc/comitup.conf` you should find a line indicating the name of the hotspot as `<plate name w/o blank>-<nnnn>`
+    3. Comitup-web
+        1. `sudo systemctl start comitup-web` should work
+        2. `sudo systemctl status comitup-web` should not report any error
+    4. Serial3
+        1. `sudo systemctl start serial3` should work
+        2. `sudo systemctl status serial3` should report that the service exited because no .serial3rc was found
 11. Search for a WiFi names `<plate name w/o blank>-<nnnn>` and connect to it using password `LSGandSGL`
+10. If not error ;-) `sudo reboot`
 
 Guess the sequel...
+
+## Outputs ##
+
+Answers and measures are written in `/home/pi/data` in a subfolder named by a short UUID. There are 2 files `questionnaire.csv` and 
