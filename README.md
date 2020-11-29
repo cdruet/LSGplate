@@ -18,7 +18,10 @@ it's called RSA authentication)
 7. `curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/install.sh`
 8. `chmod 744 install.sh`
 9. `install.sh <plate name w/o blank>` (e.g. LSGplate01)
+    1. The RasPi will be renamed
+    2. The Hotspot will be name `<plate name w/o blank>-<nnnn>`
+    3. The server should be reachable on `<plate name w/o blank>.local`
 10. If not error ;-) `sudo reboot`
-11. Search for a WiFi names LSGplate01-<nnnn> and connect to it using password LSGandSGL
+11. Search for a WiFi names `<plate name w/o blank>-<nnnn>` and connect to it using password `LSGandSGL`
 
 Guess the sequel...
