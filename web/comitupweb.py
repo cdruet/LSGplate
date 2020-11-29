@@ -123,10 +123,17 @@ def create_app(log):
 
     @app.route('/')
     def index():
+        status = state_of_service(LSG_SERVICE, log)
+        if status != 'running' and session.get('run_id'):
+            return render_template('post-questions.html',
+                                   plate=app.config['PLATE'],
+                                   id=app.config['PLATE_ID'],
+                                   run_id=session.get('run_id'))
+            
         return render_template('index.html',
                                plate=app.config['PLATE'],
                                id=app.config['PLATE_ID'],
-                               status=state_of_service(LSG_SERVICE, log))
+                               status=status)
 
     @app.route('/wifi')
     def wifi():
@@ -183,12 +190,12 @@ def create_app(log):
             return render_template('post-questions.html',
                                    plate=app.config['PLATE'],
                                    id=app.config['PLATE_ID'],
-                                   run_id=session['run_id'])
+                                   run_id=session.get('run_id'))
         return redirect(url_for('index'))
 
     @app.route("/device/<string:id>/record/<string:run_id>/post", methods=['POST'])
     def record_answers_post(id, run_id):
-        # experience = request.form['experience'].encode('utf-8')
+        experience = request.form['experience'].encode('utf-8')
         cooking = request.form['cooking'].encode('utf-8')
         mash = request.form['mash'].encode('utf-8')
         participants = int(request.form['participants'].encode())
@@ -197,7 +204,7 @@ def create_app(log):
         temperature = int(request.form['temperature'].encode())
         light = int(request.form['light'].encode())
         with open(os.path.join(OUTPUT_PATH, run_id, 'questionnaire.csv'), 'a') as io:
-            # io.write('{},{}\n'.format('experience', experience.decode('utf-8')))
+            io.write('{},{}\n'.format('experience', experience.decode('utf-8')))
             io.write('{},{}\n'.format('end', datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")))
             io.write('{},{}\n'.format('cooking', cooking.decode('utf-8')))
             io.write('{},{}\n'.format('mash', mash.decode('utf-8')))
@@ -206,6 +213,7 @@ def create_app(log):
             io.write('{},{}\n'.format('mood', mood.decode('utf-8')))
             io.write('{},{}\n'.format('temperature', temperature))
             io.write('{},{}\n'.format('light', light))
+
         session.pop('run_id')
 
         return redirect(url_for('index'))

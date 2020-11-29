@@ -57,6 +57,8 @@ git clone https://github.com/cdruet/LSGplate.git /home/pi/lsgplate
 # Preparing folders
 sudo mkdir /var/lib/lsgplate
 sudo mkdir /usr/share/lsgplate
+sudo mkdir /home/pi/log
+sudo chown -R pi.pi /home/pi/log
 sudo mkdir /home/pi/data
 sudo chown -R pi.pi /home/pi/data
 

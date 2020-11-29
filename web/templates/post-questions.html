@@ -20,10 +20,10 @@
         <form action="{{ url_for('record_answers_post', id=id, run_id=run_id) }}" method="POST">
           <fieldset class="uk-fieldset">
             
-            <!-- <div class="uk-margin"> -->
-            <!--   <label class="uk-form-label" for="experience">Comment décririez-vous votre expérience ?</label> -->
-            <!--   <input class="uk-input uk-form-small" type="text" placeholder="p.e. Je reviendrai volontiers" id="experience" name="experience"> -->
-            <!-- </div> -->
+            <div class="uk-margin">
+              <label class="uk-form-label" for="experience">Comment décririez-vous votre expérience en quelques mots ?</label>
+              <input class="uk-input uk-form-small" type="text" placeholder="p.e. Je reviendrai volontiers" id="experience" name="experience">
+            </div>
             
             <div class="uk-margin-small">
               <label class="uk-form-label" for="cooking">Comment était la cuisson ?</label>
@@ -44,7 +44,7 @@
             </div>
 
             <div class="uk-margin-small">
-              <label class="uk-form-label" for="participants">Combien de participants au repas ?</label>
+              <label class="uk-form-label" for="participants">Combien étiez-vous autour de la table ?</label>
               <input class="uk-input uk-form-small" type="text" placeholder="p.e. 25" id="participants" name="participants" required>
             </div>
             
@@ -75,7 +75,7 @@
             </div>
             
             <div class="uk-margin-small">
-              <label class="uk-form-label" for="light">Et au niveau luminosité (sombre -> clair)?</label>
+              <label class="uk-form-label" for="light">Et la luminosité (sombre -> clair)?</label>
               <input class="uk-range" type="range" value="5" min="1" max="10" step="1" id="light" name="light" required>
             </div>
             
