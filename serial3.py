@@ -119,6 +119,8 @@ def main(log, testing=0):
 
             if item < max_item:
                 item += 1
+                if item % 1500:
+                    log.info('{} minutes recorded'.format(int(item // 1500)))
             else:
                 log.info("Auto-ending serial3")
                 working = False
