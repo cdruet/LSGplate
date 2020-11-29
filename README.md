@@ -2,6 +2,7 @@
 LSG plate - Ez-connect &amp; EZ-control
 
 Installation
+------------
 
 1. Get Raspbian Stretch from 
 2. Flash a micro-SD card using Etcher
