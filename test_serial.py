@@ -75,7 +75,7 @@ def main(log, testing=0):
 
 
 if __name__ == '__main__':
-    main('log', testing=6)
+    main('log', testing=0)
     sys.exit(os.EX_OK)
 
 
