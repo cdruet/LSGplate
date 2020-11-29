@@ -72,10 +72,6 @@ def main(log, testing=0):
     signal.signal(signal.SIGTSTP, signal_handler)
     # signal.signal(signal.SIGTERM, signal_handler)
 
-    drink = []
-    meal = []
-    count = []
-
     filename = os.path.join('/home/pi/data/', run_id, 'mesures.txt')
     with open(filename, 'w') as file:
         log.info("Writing to {}".format(filename))
@@ -92,6 +88,9 @@ def main(log, testing=0):
         ports = [ p.device for p in usb.comports() if 'USB' in p.device ]
         if len(ports) > 1:
             log.error('Multiple USB devices found. Cannot choose...')
+            sys.exit(1)
+        elif not ports:
+            log.error('No Arduino found')
             sys.exit(1)
         log.info('Using port {}'.format(ports[0]))
             
@@ -113,14 +112,6 @@ def main(log, testing=0):
         while working:
             x = ser if testing else ser.readline().decode('utf-8')
             file.write(x)
-            x = x.split("\t")
-            if len(x) > 4:
-                drink.append(float(x[1]))
-                meal.append(float(x[4]))
-                if len(count) == 0:
-                    count.append(0)
-                else:
-                    count.append(count[-1] + 1)
 
             if item < max_item:
                 item += 1

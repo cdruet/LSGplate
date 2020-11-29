@@ -64,7 +64,6 @@ sudo chown -R pi.pi /home/pi/data
 
 # Amending and configuring comitup in a different way and
 # deploying LSG plate
-sudo sed -i "s/plate_name: LSGplate/plate_name: $1/g" /etc/comitup.conf
 sudo cp /home/pi/lsgplate/lsgplate.conf /etc/lsgplate.conf
 sudo sed -i "s/LSGplate<nn>/$1/g" /etc/lsgplate.conf
 sudo cp /home/pi/lsgplate/serial3.py /usr/share/lsgplate/serial3.py
