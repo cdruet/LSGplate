@@ -1,23 +1,20 @@
 import os
 import sys
+import signal
 import re
+from datetime import datetime
+
 import serial
 import serial.tools.list_ports as usb
-import datetime
-import signal
-import time
+
 import logging
 from logging.handlers import TimedRotatingFileHandler
-# import matplotlib.pyplot as plt
+
 
 RUN_PATH = "/home/pi/data/.serial3rc"
 LOG_PATH = "/home/pi/log/serial3.log"
 
-datetimeformat = "%Y-%m-%d_%H:%M:%S"
-
-
-def timestamp_to_date(now):
-    return datetime.datetime.fromtimestamp(int(now)).strftime(datetimeformat)
+datetimeformat = "%Y-%m-%d %H:%M:%S"
 
 
 def deflog():
@@ -57,8 +54,8 @@ def signal_handler(sig, frame):
 
 
 def main(log, testing=0):
-    DATE = timestamp_to_date(time.time())
-    log.info('Starting serial3 - {}'.format(DATE))
+    now = datetime.now()
+    log.info('Starting serial3')
 
     run_id = get_run_id()
     if not run_id:
@@ -74,6 +71,7 @@ def main(log, testing=0):
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTSTP, signal_handler)
     # signal.signal(signal.SIGTERM, signal_handler)
+
     drink = []
     meal = []
     count = []
@@ -82,13 +80,22 @@ def main(log, testing=0):
     with open(filename, 'w') as file:
         log.info("Writing to {}".format(filename))
 
-        # texte = input("entrez nom, repas et boisson \n")
-        # file.write(texte + '\n')
+        # Identifying the run with its ID and a timestamp
+        now = datetime.now()
+        utcnow = datetime.utcnow()
+        file.write('run: {}\nbeginning: {}\nbeginning (UTC): {}\n'.format(run_id,
+                                                                          now.strftime(datetimeformat),
+                                                                          utcnow.strftime(datetimeformat)))
+        log.info('Run {} started at {} (UTC: {})'.format(run_id, now, utcnow))
+
+        # Identifying the USB port where the Arduino is connected
         ports = [ p.device for p in usb.comports() if 'USB' in p.device ]
         if len(ports) > 1:
-            log.warning('Multiple USB devices found. Cannot choose...')
+            log.error('Multiple USB devices found. Cannot choose...')
             sys.exit(1)
+        log.info('Using port {}'.format(ports[0]))
             
+        # Reading the serial port if NOT testing
         ser = '1\t2\t3\t4\n' if testing else serial.Serial(port=ports[0],
                                                            baudrate=9600,
                                                            parity=serial.PARITY_NONE,
@@ -96,8 +103,13 @@ def main(log, testing=0):
                                                            bytesize=serial.EIGHTBITS,
                                                            timeout=1)
 
+        # Setting a limit in case the user forgets to stop the run
         item = 0
-        max_item = (30 if testing else 5 * 60 * 60 * 3)
+        max_item = (30 if testing else 5 * 60 * 60 * 2)
+        log.info('Limiting run to {} seconds or {} minutes or {} hours'.format(int(max_item / 5),
+                                                                               int(max_item / 300),
+                                                                               int(max_item / 18000)))
+        
         while working:
             x = ser if testing else ser.readline().decode('utf-8')
             file.write(x)
@@ -117,22 +129,9 @@ def main(log, testing=0):
                 working = False
                 sys.exit(os.EX_OK)
 
-
             if testing:
                 time.sleep(10)
-
-    # if not working:
-    #     plt.figure(figsize=(20,10))
-    #     plt.plot(count, drink, linewidth=0.50, label='verre')
-    #     plt.plot(count, meal, linewidth=0.50, label='assiete')
-    #     plt.xlabel('time')
-    #     plt.ylabel('poid')
-    #     plt.title(texte)
-    #     plt.legend()
-    #     filename = '/home/pi/data/charts' + DATE + '.png'
-    #     log.info("Writing to {}".format(filename))
-    #     plt.savefig(filename)
-    #     exit()
+    return 0
 
 
 if __name__ == '__main__':
