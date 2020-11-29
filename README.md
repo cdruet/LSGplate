@@ -42,7 +42,7 @@ it's called RSA authentication)
         1. `sudo systemctl start serial3` should work
         2. `sudo systemctl status serial3` should report that the service exited because no .serial3rc was found
 10. Search for a WiFi names `<plate name w/o blank>-<nnnn>` and connect to it using password `LSGandSGL`
-11. If not error ;-) `sudo reboot`
+11. If no error ;-) `sudo reboot`
     1. If you get the following error message: `dpkg: error: dpkg status database is locked by another process` try `sudo apt --fix-broken install`
 
 Guess the sequel...
