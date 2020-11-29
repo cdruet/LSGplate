@@ -15,7 +15,7 @@ If the user starts the plate, s&middot;he is asked a few questions that s&middot
 ## Installation ##
 
 1. Get [Raspbian Stretch Lite - version 2019-04-08](https://downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2019-04-09/2019-04-08-raspbian-stretch-lite.zip)
-2. Flash a micro-SD card using Etcher
+2. Flash a micro-SD card using [Balena Etcher](https://www.balena.io/etcher/)
 3. Create an empty file `ssh` in the folder `/boot` of the freshly flashed micro-SD card
 4. Insert the micro-SD card into a RasPi, connect it to an Ethernet cable on a functioning LAN and boot it
 5. Find the IP address of the RasPi
@@ -48,4 +48,6 @@ Guess the sequel...
 
 ## Outputs ##
 
-Answers and measures are written in `/home/pi/data` in a subfolder named by a short UUID. There are 2 files `questionnaire.csv` and 
+Answers and measures are written in `/home/pi/data` in a subfolder named by a short UUID. 
+
+There are 2 files `questionnaire.csv` and `mesures.txt`. Both contain the UUID of the run and a timestamp.
