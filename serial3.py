@@ -106,9 +106,10 @@ def main(log, testing=0):
         # Setting a limit in case the user forgets to stop the run
         item = 0
         max_item = (30 if testing else 5 * 60 * 60 * 2)
-        log.info('Limiting run to {} seconds or {} minutes or {} hours'.format(int(max_item / 5),
-                                                                               int(max_item / 300),
-                                                                               int(max_item / 18000)))
+        if not testing:
+            log.info('Limiting run to {} seconds or {} minutes or {} hours'.format(int(max_item / 5),
+                                                                                   int(max_item / 300),
+                                                                                   int(max_item / 18000)))
         
         while working:
             x = ser if testing else ser.readline().decode('utf-8')
