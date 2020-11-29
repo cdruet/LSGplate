@@ -15,12 +15,6 @@ sudo sed -i 's/# web_service: httpd.service/web_service: comitup-web.service/g' 
 
 
 
-# ***** LSG plate configuration/installation
-# Updating
-cd lsgplate
-git pull
-cd
-
 # Amending and configuring comitup in a different way and
 # deploying LSG plate
 sudo cp /home/pi/lsgplate/lsgplate.conf /etc/lsgplate.conf
