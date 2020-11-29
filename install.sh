@@ -3,23 +3,22 @@
 # Requirement:
 # curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/install.sh
 
+# ***** Setting up a few things on the Pi
 sudo sed 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/g' /etc/locale.gen
 sudo sed 's/# fr_BE.UTF-8 UTF-8/fr_BE.UTF-8 UTF-8/g' /etc/locale.gen
 sudo locale-gen en_GB.UTF-8
 sudo update-locale en_GB.UTF-8
+sudo apt update
+sudo LANGUAGE=$LANG LC_ALL=$LANG apt upgrade -y
 
-# ***** Raspberry pre-configuration
-sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y netatalk
+
 
 # ***** Comitup configuration/installation
 # Configuring APT to get the latest release and automaticaly update
 sudo sh -c "echo 'deb http://davesteele.github.io/comitup/repo comitup main' >> /etc/apt/sources.list"
-
 wget https://davesteele.github.io/key-366150CE.pub.txt
 sudo apt-key add key-366150CE.pub.txt
-
 sudo apt update
-sudo LANGUAGE=$LANG LC_ALL=$LANG apt upgrade -y
 
 # Installing
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y comitup
