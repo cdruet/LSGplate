@@ -54,6 +54,7 @@ There are 2 files `questionnaire.csv` and `mesures.txt`. Both contain the UUID o
 
 ## Updating ##
 
-1. `curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/update.sh`
-2. `chmod 744 update.sh`
-3. `update.sh`
+1. `cd lsgplate`
+2. `git pull`
+3. `chmod 744 update.sh`
+4. `./update.sh`
