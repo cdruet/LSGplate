@@ -27,6 +27,7 @@ If the user starts the plate, s&middot;he is asked a few questions that s&middot
     1. `sudo raspi-config`, etc to change the password that you can make very complex considering you can connect w/o entering it thanks to your SSH key (by the way 
 it's called RSA authentication)
 7. `curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/install.sh`
+    1. `chmod 744 install.sh`
 8. `install.sh <plate name w/o blank>` (e.g. LSGplate01). Grab a (few) coffee(s) as the procedure takes quite some time (it's setting up the RasPi, locale, filesystem expansion... upgrading packages... installing required packages and librairies... copying the LSG plate files to where they must be... and configuring it)
     1. The RasPi will be renamed
     2. The Hotspot will be name `<plate name w/o blank>-<nnnn>`
