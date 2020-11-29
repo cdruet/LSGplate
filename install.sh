@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Requirement:
 # curl -LJO https://raw.githubusercontent.com/cdruet/LSGplate/master/install.sh
@@ -6,8 +7,8 @@
 # ***** Setting up a few things on the Pi
 sudo sed 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/g' /etc/locale.gen
 sudo sed 's/# fr_BE.UTF-8 UTF-8/fr_BE.UTF-8 UTF-8/g' /etc/locale.gen
-sudo locale-gen en_GB.UTF-8
-sudo update-locale en_GB.UTF-8
+sudo LANGUAGE=$LANG LC_ALL=$LANG locale-gen en_GB.UTF-8
+sudo LANGUAGE=$LANG LC_ALL=$LANG update-locale en_GB.UTF-8
 sudo apt update
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt upgrade -y
 
@@ -63,6 +64,7 @@ sudo chown -R pi.pi /home/pi/data
 # deploying LSG plate
 sudo sed -i "s/plate_name: LSGplate/plate_name: $1/g" /etc/comitup.conf
 sudo cp /home/pi/lsgplate/lsgplate.conf /etc/lsgplate.conf
+sudo sed -i "s/LSGplate<nn>/$1/g" /etc/lsgplate.conf
 sudo cp /home/pi/lsgplate/serial3.py /usr/share/lsgplate/serial3.py
 sudo cp /home/pi/lsgplate/serial3.service /lib/systemd/system/serial3.service
 sudo cp /home/pi/lsgplate/comitup-web.service /lib/systemd/system/comitup-web.service
