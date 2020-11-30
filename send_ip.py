@@ -20,6 +20,7 @@ GMAIL_PASS = u''
 SMTP_SERVER = u'smtp.office365.com'
 SMTP_PORT = 587
   
+CONF_PATH = "/etc/lsgplate.conf"
 LOG_PATH = "/var/log/send_ip.log"
 
 
@@ -42,12 +43,30 @@ def deflog(logname):
     return log
 
 
+def load_data():
+    conf = config.Config(
+                CONF_PATH,
+                defaults={
+                    'plate_name': 'LSGplateID',
+                },
+             )
+
+    data = persist.persist(
+                PERSIST_PATH,
+                {'id': shortuuid.uuid(),
+                 'secret': str(shortuuid.uuid()) + str(shortuuid.uuid()) + str(shortuuid.uuid())},
+           )
+
+    return (conf, data)
+
+
 def send_ip(recipient, subject, text, log):
+  conf, data = load_data()
   log.info("Trying to send IP to " + recipient + " about " + subject + " : " + text)
   try:
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
-    subject = s.getsockname()[0]
+    subject = '{} IP address is {}'.format(conf.plate_name, s.getsockname()[0])
 
     smtpserver = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
     smtpserver.ehlo()
