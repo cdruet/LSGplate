@@ -43,9 +43,24 @@ it's called RSA authentication)
         2. `sudo systemctl status serial3` should report that the service exited because no .serial3rc was found
 10. Search for a WiFi names `<plate name w/o blank>-<nnnn>` and connect to it using password `LSGandSGL`
 11. If no error ;-) `sudo reboot`
-    1. If you get the following error message: `dpkg: error: dpkg status database is locked by another process` try `sudo apt --fix-broken install`
 
 Guess the sequel...
+
+## Troubleshooting ##
+
+### dpgk error message ###
+
+If you get the following error message: `dpkg: error: dpkg status database is locked by another process` try `sudo apt --fix-broken install`
+
+### hotspot is named with 4 digits only ###
+
+If the hotspot you find is named -<nnnn>, something went wrong when naming the RasPi, the Hotspot and the plate. You can correct this in the following manner:
+1. Edit /etc/hostname (`sudo nano /etc/hostname`) and name the RasPi (e.g. `LSGplate01`)
+    - <ctrl>-o, <enter>, <ctrl>-x to save and exit nano
+2. Edit /etc/hosts and at the last line 127.1.0.1 add the name you've just used (e.g. `LSGplate01`)
+3. Edit /etc/comitup.conf and at the line starting with `ap_name: -<nnnn>` add the name of the plate (e.g. `ap_name: LSGplate01-<nnnn>`)
+4. Edit /etc/lsgplate.conf and at the line starting with `plate_name:` add the name of the plate again (e.g. `plate_name: LSGplate01`)
+
 
 ## Outputs ##
 
