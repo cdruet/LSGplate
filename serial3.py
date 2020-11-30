@@ -86,7 +86,7 @@ def main(log, testing=0):
         log.info('Run {} started at {} (UTC: {})'.format(run_id, now, utcnow))
 
         # Identifying the USB port where the Arduino is connected
-        ports = [ p.device for p in usb.comports() if 'USB' in p.device or 'ACL' in p.device ]
+        ports = [ p.device for p in usb.comports() if 'USB' in p.device or 'ACM' in p.device ]
         if len(ports) > 1:
             log.error('Multiple USB devices found. Cannot choose...')
             sys.exit(1)
