@@ -33,9 +33,9 @@ sudo LANGUAGE=$LANG LC_ALL=$LANG pip3 install pycairo
 # Configuring
 sudo sh -c "echo 'denyinterfaces wlan0' >> /etc/dhcpcd.conf"
 sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf_orig
-sudo sed -i "s/^.*ap_name: .+\$/ap_name: $1-<nnnn>/g" /etc/comitup.conf
-# sudo sed -i 's/^.*ap_password: .+\$/ap_password: LSGandSGL/g' /etc/comitup.conf
-sudo sed -i 's/^.*web_service: .+\$/web_service: comitup-web.service/g' /etc/comitup.conf
+sudo sed -i "s/^.*ap_name: .*\$/ap_name: $1-<nnnn>/g" /etc/comitup.conf
+# sudo sed -i 's/^.*ap_password: .*\$/ap_password: LSGandSGL/g' /etc/comitup.conf
+sudo sed -i 's/^.*web_service: .*\$/web_service: comitup-web.service/g' /etc/comitup.conf
 
 # Making sure the WiFi interface does never sleep
 sudo iw wlan0 set power_save off

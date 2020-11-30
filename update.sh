@@ -9,9 +9,9 @@ sudo LANGUAGE=$LANG LC_ALL=$LANG apt upgrade -y
 
 # ***** Updating Comitup
 # Re-Configuring
-sudo sed -i "s/^.*ap_name: .+\$/ap_name: $HOSTNAME-<nnnn>/g" /etc/comitup.conf
-# sudo sed -i 's/# ap_password: supersecretpassword/ap_password: LSGandSGL/g' /etc/comitup.conf
-sudo sed -i 's/^.*web_service: .+\$/web_service: comitup-web.service/g' /etc/comitup.conf
+sudo sed -i "s/^.*ap_name: .*\$/ap_name: $HOSTNAME-<nnnn>/g" /etc/comitup.conf
+# sudo sed -i 's/^.*ap_password: .*\$/ap_password: LSGandSGL/g' /etc/comitup.conf
+sudo sed -i 's/^.*web_service: .*\$/web_service: comitup-web.service/g' /etc/comitup.conf
 
 
 
