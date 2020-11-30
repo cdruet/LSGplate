@@ -52,14 +52,14 @@ Guess the sequel...
 
 If you get the following error message: `dpkg: error: dpkg status database is locked by another process` try `sudo apt --fix-broken install`
 
-### hotspot is named with 4 digits only ###
+### hotspot is NOT named after the name you provided as an argument to install.sh ###
 
-If the hotspot you find is named -<nnnn>, something went wrong when naming the RasPi, the Hotspot and the plate. You can correct this in the following manner:
+If the hotspot you find is named -<nnnn> or comitup-<nnnn>, something went wrong when naming the RasPi, the Hotspot and the plate. You can correct this in the following manner:
 1. Edit /etc/hostname (`sudo nano /etc/hostname`) and name the RasPi (e.g. `LSGplate01`)
-    - <ctrl>-o, <enter>, <ctrl>-x to save and exit nano
-2. Edit /etc/hosts and at the last line 127.1.0.1 add the name you've just used (e.g. `LSGplate01`)
-3. Edit /etc/comitup.conf and at the line starting with `ap_name: -<nnnn>` add the name of the plate (e.g. `ap_name: LSGplate01-<nnnn>`)
-4. Edit /etc/lsgplate.conf and at the line starting with `plate_name:` add the name of the plate again (e.g. `plate_name: LSGplate01`)
+    - <ctrl>-o, <enter> to save it and, <ctrl>-x to exit nano
+2. Edit /etc/hosts and, at the last line 127.0.1.1, add the name you've just chosen (e.g. `LSGplate01`)
+3. Edit /etc/comitup.conf and, at the line starting with `ap_name: ...`, add the name of the plate (e.g. `ap_name: LSGplate01-<nnnn>`)
+4. Edit /etc/lsgplate.conf and, at the line starting with `plate_name:`, add the name of the plate again (e.g. `plate_name: LSGplate01`)
 
 
 ## Outputs ##
