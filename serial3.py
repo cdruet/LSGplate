@@ -88,7 +88,7 @@ def main(log, testing=0):
         # Identifying the USB port where the Arduino is connected
         ports = [ p.device for p in usb.comports() if 'USB' in p.device or 'ACM' in p.device ]
         if len(ports) > 1:
-            log.error('Multiple USB devices found. Cannot choose...')
+            log.error('Multiple devices found. Cannot choose among{}'.format(ports))
             sys.exit(1)
         elif not ports:
             log.error('No Arduino found')
