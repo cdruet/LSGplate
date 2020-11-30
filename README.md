@@ -73,3 +73,10 @@ There are 2 files `questionnaire.csv` and `mesures.txt`. Both contain the UUID o
 1. `cd lsgplate`
 2. `git pull`
 3. `./update.sh`
+
+## Renaming the plate ##
+
+1. `cd lsgplate``
+2. `git pull` (just in case)
+3. `./rename.sh <new plate name>`
+
