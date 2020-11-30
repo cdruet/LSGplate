@@ -11,7 +11,7 @@ User=root
 Type=idle
 ExecStart=/usr/bin/python3 /usr/share/lsgplate/send_ip.py
 Restart=always
-RestartSec=60s
+RestartSec=3600s
 KillMode=process
 
 [Install]
