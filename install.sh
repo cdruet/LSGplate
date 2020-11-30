@@ -88,8 +88,8 @@ sudo systemctl start send_ip
 
 
 # ***** Raspberry post-configuration (before reboot)
-sudo sed -i "s/$HOSTNAME/$1/g" /etc/hosts
-sudo sed -i "s/^.*$HOSTNAME.*\$/$1/g" /etc/hostname
+sudo sed -i "s/^127\.0\.1\.1.*\$/127.0.1.1\t$1/g" /etc/hosts
+sudo sed -i "s/^.*\$/$1/g" /etc/hostname
 
 sudo raspi-config --expand-rootfs
 
