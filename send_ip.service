@@ -1,0 +1,18 @@
+Description="Send the ip of the RasPi every 60 minutes"
+
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Environment=LANGUAGE=$LANG
+Environment=LC_ALL=$LANG
+WorkingDirectory=/usr/share/lsgplate
+User=root
+Type=idle
+ExecStart=/usr/bin/python3 /usr/share/lsgplate/send_ip.py
+Restart=always
+RestartSec=60s
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
