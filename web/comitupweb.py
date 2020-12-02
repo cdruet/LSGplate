@@ -124,11 +124,11 @@ def create_app(log):
     @app.route('/')
     def index():
         status = state_of_service(LSG_SERVICE, log)
-        if status != 'running' and session.get('run_id'):
+        if (status != 'running' and session.get(app_config['PLATE'])):
             return render_template('post-questions.html',
                                    plate=app.config['PLATE'],
                                    id=app.config['PLATE_ID'],
-                                   run_id=session.get('run_id'))
+                                   run_id=session.get(app.config['PLATE']))
             
         return render_template('index.html',
                                plate=app.config['PLATE'],
@@ -150,7 +150,7 @@ def create_app(log):
         if id == app.config['PLATE_ID']:
             run_id = shortuuid.uuid()
             os.makedirs(os.path.join(OUTPUT_PATH, run_id), mode=0o775)
-            session['run_id'] = run_id
+            session[app.config['PLATE']] = run_id
             with open(RUN_PATH, 'w') as io:
                 io.write(run_id)
             start_service(LSG_SERVICE, log)
@@ -163,22 +163,23 @@ def create_app(log):
  
     @app.route("/device/<string:id>/record/<string:run_id>/pre", methods=['POST'])
     def record_answers_pre(id, run_id):
-        fullname = request.form['fullname'].encode('utf-8')
-        gender = request.form['gender'].encode('utf-8')
-        age = int(request.form['age'].encode())
-        weight = float(request.form['weight'].encode())
-        hunger = request.form['hunger'].encode('utf-8')
-        meal = request.form['meal'].encode('utf-8')
-        with open(os.path.join(OUTPUT_PATH, run_id, 'questionnaire.csv'), 'w') as io:
-            io.write('{},{}\n'.format('data', 'value'))
-            io.write('{},{}\n'.format('beginning', datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
-            io.write('{},{}\n'.format('run', run_id))
-            io.write('{},{}\n'.format('fullname', fullname.decode('utf-8')))
-            io.write('{},{}\n'.format('gender', gender.decode('utf-8')))
-            io.write('{},{}\n'.format('age', age))
-            io.write('{},{}\n'.format('weight', weight))
-            io.write('{},{}\n'.format('hunger', hunger.decode('utf-8')))
-            io.write('{},{}\n'.format('meal', meal.decode('utf-8')))
+        if session.get(app.config['PLATE']) == run_id:
+            fullname = request.form['fullname'].encode('utf-8')
+            gender = request.form['gender'].encode('utf-8')
+            age = int(request.form['age'].encode())
+            weight = float(request.form['weight'].encode())
+            hunger = request.form['hunger'].encode('utf-8')
+            meal = request.form['meal'].encode('utf-8')
+            with open(os.path.join(OUTPUT_PATH, run_id, 'questionnaire.csv'), 'w') as io:
+                io.write('{},{}\n'.format('data', 'value'))
+                io.write('{},{}\n'.format('beginning', datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+                io.write('{},{}\n'.format('run', run_id))
+                io.write('{},{}\n'.format('fullname', fullname.decode('utf-8')))
+                io.write('{},{}\n'.format('gender', gender.decode('utf-8')))
+                io.write('{},{}\n'.format('age', age))
+                io.write('{},{}\n'.format('weight', weight))
+                io.write('{},{}\n'.format('hunger', hunger.decode('utf-8')))
+                io.write('{},{}\n'.format('meal', meal.decode('utf-8')))
 
         return redirect(url_for('index'))
 
@@ -214,7 +215,7 @@ def create_app(log):
             io.write('{},{}\n'.format('temperature', temperature))
             io.write('{},{}\n'.format('light', light))
 
-        session.pop('run_id')
+        session.pop(app.config['PLATE'])
 
         return redirect(url_for('index'))
 
