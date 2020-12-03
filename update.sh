@@ -17,7 +17,6 @@ sudo sed -i 's/^.*web_service: .*\$/web_service: comitup-web.service/g' /etc/com
 
 # Amending and configuring comitup in a different way and
 # deploying LSG plate
-sudo systemctl stop send_ip
 sudo cp /home/pi/lsgplate/lsgplate.conf /etc/lsgplate.conf
 sudo sed -i "s/^.*plate_name: .*\$/plate_name: $HOSTNAME/g" /etc/lsgplate.conf
 sudo cp /home/pi/lsgplate/helpers.py /usr/share/lsgplate/helpers.py
