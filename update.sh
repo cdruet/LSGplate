@@ -17,6 +17,7 @@ sudo sed -i 's/^.*web_service: .*\$/web_service: comitup-web.service/g' /etc/com
 
 # Amending and configuring comitup in a different way and
 # deploying LSG plate
+echo "Re-configuring LSG plate"
 sudo cp /home/pi/lsgplate/lsgplate.conf /etc/lsgplate.conf
 sudo sed -i "s/^.*plate_name: .*\$/plate_name: $HOSTNAME/g" /etc/lsgplate.conf
 sudo cp /home/pi/lsgplate/helpers.py /usr/share/lsgplate/helpers.py
@@ -41,9 +42,9 @@ sudo cp /home/pi/lsgplate/comitup-web.service /lib/systemd/system/comitup-web.se
 # Refreshing services
 sudo systemctl daemon-reload
 sudo systemctl enable post_ip
-sudo systemctl start post_ip
 sudo systemctl enable send_ip
-sudo systemctl start send_ip
+sudo systemctl restart post_ip
+sudo systemctl restart send_ip
 sudo systemctl restart comitup-web
 
 echo "No need to reboot... normally ;-)"
