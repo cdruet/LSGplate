@@ -61,15 +61,14 @@ def get_ip():
 def post_ip(conf, ip, log):
     log.info('Trying to post IP on dedicated webservice')
     try:
-        url = 'https://webservices.stoachup.be/redirect/local/v1.0/register'
+        url = conf.registering_service
         data = { 'api_key': conf.api_key, 
                  'application': 'lsgplate',
                  'keyword': conf.plate_name,
                  'local_ip': ip }
         
-        x = requests.post(url, data=data)
-        
-        print(x.text)
+        r = requests.post(url, data=data)
+        print(r.json())
         return True
     except:
         traceback.print_exc()
