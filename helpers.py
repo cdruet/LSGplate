@@ -124,9 +124,11 @@ def load_data(conf_path, persist_path):
 
 
 def get_ip():
-    if 'wlan0' in netifaces.interfaces():
+    if ('wlan0' in netifaces.interfaces() and
+        2 in netifaces.ifaddresses('wlan0')):
         return netifaces.ifaddresses('wlan0')[2][0]['addr']
-    elif 'eth0' in netifaces.interfaces():
+    elif ('eth0' in netifaces.interfaces() and
+        2 in netifaces.ifaddresses('eth0')):
         return netifaces.ifaddresses('wlan0')[2][0]['addr']
     else:
         return '0.0.0.0'
