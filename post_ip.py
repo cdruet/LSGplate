@@ -39,7 +39,7 @@ def main(log):
     ip = get_ip()
     if post_ip(conf, ip , log):
         log.info('IP ({}) successfully registered'.format(ip))
-        sys.exit(os.ex_OK)
+        sys.exit(os.EX_OK)
     else:
         log.warn('Failed to register IP ({})'.format(ip))
         sys.exit(1)
