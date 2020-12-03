@@ -1,62 +1,12 @@
-import datetime
-import fcntl
-import hashlib
-import math
-import smtplib
-import socket
 import traceback
 import requests
 
-  
-from comitup import config
-from comitup import persist
-
+from helpers import deflog, load_data, get_ip
 
 CONF_PATH = "/etc/lsgplate.conf"
+PERSIST_PATH = "/var/lib/lsgplate/lsgplate.json"
 LOG_PATH = "/var/log/post_ip.log"
 
-
-def deflog(logname):
-    log = logging.getLogger(logname)
-    log.setLevel(logging.INFO)
-    handler = TimedRotatingFileHandler(
-                LOG_PATH,
-                encoding='utf=8',
-                when='D',
-                interval=7,
-                backupCount=8,
-              )
-    fmtr = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-           )
-    handler.setFormatter(fmtr)
-    log.addHandler(handler)
-
-    return log
-
-
-def load_data():
-    conf = config.Config(
-                CONF_PATH,
-                defaults={
-                    'plate_name': 'LSGplateID',
-                },
-             )
-
-    data = persist.persist(
-                PERSIST_PATH,
-                {'id': shortuuid.uuid(),
-                 'secret': str(shortuuid.uuid()) + str(shortuuid.uuid()) + str(shortuuid.uuid())},
-           )
-
-    return (conf, data)
-
-
-def get_ip():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    return s.getsockname()[0]
-    
 
 def post_ip(conf, ip, log):
     log.info('Trying to post IP on dedicated webservice')
@@ -77,7 +27,7 @@ def post_ip(conf, ip, log):
 
 def main(log):
     log.info('Sending IP...')
-    conf, data = load_data()
+    conf, data = load_data(CONF_PATH, PERSIST_PATH)
     ip = get_ip()
     count = 0
     max_attempt = 30
@@ -88,5 +38,5 @@ def main(log):
 
 
 if __name__ == '__main__':
-    log = deflog('send_ip')
+    log = deflog('send_ip', LOG_PATH)
     main(log)

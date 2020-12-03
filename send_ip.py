@@ -14,6 +14,8 @@ import traceback
 import urllib
 import requests
 
+from helpers import deflog, load_data, get_ip
+
 recipient = ""
 
 GMAIL_USER = u''
@@ -22,55 +24,14 @@ SMTP_SERVER = u'smtp.office365.com'
 SMTP_PORT = 587
   
 CONF_PATH = "/etc/lsgplate.conf"
+PERSIST_PATH = "/var/lib/lsgplate/lsgplate.json"
 LOG_PATH = "/var/log/send_ip.log"
 
 
-def deflog(logname):
-    log = logging.getLogger(logname)
-    log.setLevel(logging.INFO)
-    handler = TimedRotatingFileHandler(
-                LOG_PATH,
-                encoding='utf=8',
-                when='D',
-                interval=7,
-                backupCount=8,
-              )
-    fmtr = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-           )
-    handler.setFormatter(fmtr)
-    log.addHandler(handler)
-
-    return log
-
-
-def load_data():
-    conf = config.Config(
-                CONF_PATH,
-                defaults={
-                    'plate_name': 'LSGplateID',
-                },
-             )
-
-    data = persist.persist(
-                PERSIST_PATH,
-                {'id': shortuuid.uuid(),
-                 'secret': str(shortuuid.uuid()) + str(shortuuid.uuid()) + str(shortuuid.uuid())},
-           )
-
-    return (conf, data)
-
-
-def get_ip():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    return s.getsockname()[0]
-    
-
-def send_ip(recipient, plate, ip, log):
-    log.info("Trying to send IP to " + recipient + " about " + subject + " : " + text)
+def send_ip(conf, ip, log):
+    log.info("Trying to send IP to " + conf.recipient + " about " + subject + " : " + text)
     try:
-        subject = '{} IP address is {}'.format(plate, ip)
+        subject = '{} IP address is {}'.format(conf.plate_name, ip)
         
         smtpserver = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
         smtpserver.ehlo()
@@ -83,14 +44,14 @@ def send_ip(recipient, plate, ip, log):
         msg = MIMEMultipart('alternative')
         msg.set_charset('utf8')
         msg['From'] = GMAIL_USER
-        msg['To'] = recipient
+        msg['To'] = conf.recipient
         msg['Subject'] = Header(subject.encode('utf-8'),
                                 'UTF-8').encode()
         
         _attach = MIMEText(subject.encode('utf-8'), 'plain', 'UTF-8')
         msg.attach(_attach)
         
-        smtpserver.sendmail(GMAIL_USER, recipient, msg.as_string())
+        smtpserver.sendmail(GMAIL_USER, conf.recipient, msg.as_string())
         smtpserver.close()
         log.info("IP sent")
         return True
@@ -99,31 +60,14 @@ def send_ip(recipient, plate, ip, log):
     return False
 
 
-def post_ip(plate, ip, log):
-    log.info('Trying to post IP on dedicated webservice')
-    try:
-        url = 'https://webservices.stoachup.be/redirect/local/v1.0'
-        data = { 'service': 'lsgplate',
-                 'keyword': plate,
-                 'local_ip': ip }
-        
-        x = requests.post(url, data=data)
-        
-        print(x.text)
-        return True
-    except:
-        traceback.print_exc()
-    return False
-
-
 def main(log):
     log.info("Sending IP util successful")
-    conf, data = load_data()
+    conf, data = load_data(CONF_PATH, PERSIST_PATH)
     ip = get_ip()
-    while not send_ip(recipient, conf.plate_name, ip, log):
+    while not send_ip(conf, ip, log):
         time.sleep(60)
 
 
 if __name__ == '__main__':
-    log = deflog('send_ip')
+    log = deflog('send_ip', LOG_PATH)
     main(log)
