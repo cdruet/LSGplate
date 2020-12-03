@@ -37,8 +37,10 @@ def main(log):
     conf, data = load_data(CONF_PATH, PERSIST_PATH)
 
     if post_ip(conf, get_ip(), log):
+        log.info('IP successfully registered')
         sys.exit(os.ex_OK)
     else:
+        log.warn('Failed to register IP')
         sys.exit(1)
 
 
