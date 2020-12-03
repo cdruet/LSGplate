@@ -17,9 +17,10 @@ def post_ip(conf, ip, log):
                  'application': 'lsgplate',
                  'keyword': conf.plate_name,
                  'local_ip': ip }
-        
+
+        print(url, data)
         r = requests.post(url, data=data)
-        print(r.json())
+        print(r)
         return True
     except:
         traceback.print_exc()
