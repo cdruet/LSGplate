@@ -1,7 +1,7 @@
 import os
 import io
 import json
-import socket
+import netifaces
 from functools import wraps
 import logging
 from logging.handlers import TimedRotatingFileHandler
@@ -124,8 +124,12 @@ def load_data(conf_path, persist_path):
 
 
 def get_ip():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    return s.getsockname()[0]
+    if 'wlan0' in netifaces.interfaces():
+        return netifaces.ifaddresses('wlan0')[2][0]['addr']
+    elif 'eth0' in netifaces.interfaces():
+        return netifaces.ifaddresses('wlan0')[2][0]['addr']
+    else:
+        return 0.0.0.0
+
     
 
