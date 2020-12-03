@@ -1,3 +1,5 @@
+import os
+import sys
 import time
 import json
 import traceback
@@ -33,13 +35,11 @@ def post_ip(conf, ip, log):
 def main(log):
     log.info('Sending IP...')
     conf, data = load_data(CONF_PATH, PERSIST_PATH)
-    ip = get_ip()
-    count = 0
-    max_attempt = 30
-    while count < max_attempt and not post_ip(conf, ip, log):
-        count += 1
-        log.warning('Attempt #{} failed. Trying again in 10 seconds.'.format(count))
-        time.sleep(10)
+
+    if post_ip(conf, get_ip(), log):
+        sys.exit(os.ex_OK)
+    else:
+        sys.exit(1)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,18 @@
+Description="Send the IP address to Stoachup Web Services for local redirection"
+
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Environment=LANGUAGE=$LANG
+Environment=LC_ALL=$LANG
+WorkingDirectory=/usr/share/lsgplate
+User=root
+Type=simple
+ExecStart=/usr/bin/python3 /usr/share/lsgplate/post_ip.py
+Restart=always
+RestartSec=60s
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
