@@ -13,13 +13,14 @@ def post_ip(conf, ip, log):
     log.info('Trying to post IP on dedicated webservice')
     try:
         url = conf.registering_service
+        headers = { 'Content-Type': 'application/json' }
         data = { 'api_key': conf.api_key, 
                  'application': 'lsgplate',
                  'keyword': conf.plate_name,
                  'local_ip': ip }
 
         print(url, data)
-        r = requests.post(url, data=data)
+        r = requests.post(url, headers=headers, data=data)
         print(r)
         return True
     except:
