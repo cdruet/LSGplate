@@ -33,7 +33,7 @@ def post_ip(conf, ip, log):
 
 
 def main(log):
-    log.info('Sending IP...')
+    log.info('Registering IP...')
     conf, data = load_data(CONF_PATH, PERSIST_PATH)
 
     ip = get_ip()

@@ -29,6 +29,9 @@ LOG_PATH = "/var/log/send_ip.log"
 
 
 def send_ip(conf, ip, log):
+    if GMAIL_USER == '' or GMAIL_PASS == '':
+        log.error('Connection to SMTP cannot be configured by lack of user/password')
+        return False
     log.info('Trying to send IP ({}) to {}'.format(ip, conf.recipient))
     try:
         subject = '{} IP address is {}'.format(conf.plate_name, ip)
@@ -61,11 +64,15 @@ def send_ip(conf, ip, log):
 
 
 def main(log):
-    log.info("Sending IP util successful")
+    log.info("Sending IP...")
     conf, data = load_data(CONF_PATH, PERSIST_PATH)
     ip = get_ip()
-    while not send_ip(conf, ip, log):
-        time.sleep(60)
+    if send_ip(conf, ip, log):
+        log.info('IP ({}) successfully sent'.format(ip))
+        sys.exit(os.EX_OK)
+    else:
+        log.warn('Failed to send IP ({})'.format(ip))
+        sys.exit(1)
 
 
 if __name__ == '__main__':
