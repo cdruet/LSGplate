@@ -19,9 +19,9 @@ def post_ip(conf, ip, log):
                  'keyword': conf.plate_name,
                  'local_ip': ip }
 
-        print(url, data)
         r = requests.post(url, headers=headers, data=data)
-        print(r)
+        print(r.status_code)
+        print(r.text)
         return True
     except:
         traceback.print_exc()
