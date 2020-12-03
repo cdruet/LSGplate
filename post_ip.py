@@ -1,4 +1,5 @@
 import time
+imort json
 import traceback
 import requests
 
@@ -19,7 +20,9 @@ def post_ip(conf, ip, log):
                  'keyword': conf.plate_name,
                  'local_ip': ip }
 
-        r = requests.post(url, headers=headers, data=data)
+        print(data)
+        print(json.dumps(data))
+        r = requests.post(url, headers=headers, data=json.dumps(data))
         print(r.status_code)
         print(r.text)
         return True
