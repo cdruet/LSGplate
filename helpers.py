@@ -9,11 +9,11 @@ import configparser
 import shortuuid
 
 
-def deflog(logname, logpath):
+def deflog(logname, log_path):
     log = logging.getLogger(logname)
     log.setLevel(logging.INFO)
     handler = TimedRotatingFileHandler(
-                logpath,
+                log_path,
                 encoding='utf=8',
                 when='D',
                 interval=7,
@@ -106,16 +106,16 @@ class Persist(dict):
             return self.__getitem__(name)
 
 
-def load_data():
+def load_data(conf_path, persist_path):
     conf = Config(
-                CONF_PATH,
+                conf_path,
                 defaults={
                     'plate_name': 'LSGplateID',
                 },
              )
 
     data = Persist(
-                PERSIST_PATH,
+                persist_path,
                 {'id': shortuuid.uuid(),
                  'secret': str(shortuuid.uuid()) + str(shortuuid.uuid()) + str(shortuuid.uuid())},
            )
