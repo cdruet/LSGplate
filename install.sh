@@ -48,7 +48,7 @@ sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y git
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-systemd
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-serial
 # sudo LANGUAGE=$LANG LC_ALL=$LANG apt install -y python3-matplotlib
-sudo LANGUAGE=$LANG LC_ALL=$LANG pip3 install pyserial secrets shortuuid
+sudo LANGUAGE=$LANG LC_ALL=$LANG pip3 install pyserial secrets shortuuid netifaces
 
 # Cloning
 git clone https://github.com/cdruet/LSGplate.git /home/pi/lsgplate

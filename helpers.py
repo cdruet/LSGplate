@@ -129,7 +129,7 @@ def get_ip():
     elif 'eth0' in netifaces.interfaces():
         return netifaces.ifaddresses('wlan0')[2][0]['addr']
     else:
-        return 0.0.0.0
+        return '0.0.0.0'
 
     
 
