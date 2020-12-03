@@ -29,7 +29,7 @@ LOG_PATH = "/var/log/send_ip.log"
 
 
 def send_ip(conf, ip, log):
-    log.info("Trying to send IP to " + conf.recipient + " about " + subject + " : " + text)
+    log.info('Trying to send IP ({}) to {}'.format(ip, conf.recipient))
     try:
         subject = '{} IP address is {}'.format(conf.plate_name, ip)
         
