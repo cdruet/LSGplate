@@ -124,7 +124,7 @@ def create_app(log):
     @app.route('/')
     def index():
         status = state_of_service(LSG_SERVICE, log)
-        if (status != 'running' and session.get(app_config['PLATE'])):
+        if (status != 'running' and session.get(app.config['PLATE'])):
             return render_template('post-questions.html',
                                    plate=app.config['PLATE'],
                                    id=app.config['PLATE_ID'],
