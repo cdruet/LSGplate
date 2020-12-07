@@ -115,6 +115,7 @@ def create_app(log):
     app.config['SECRET_KEY'] = data.secret
     app.config['PLATE'] = conf.plate_name
     app.config['PLATE_ID'] = data.id
+    app.config['PLATE_URL'] = '{}/goto/lsgplate/{}'.format(conf.registering_service, conf.plate_name)
 
     @app.after_request
     def add_header(response):
@@ -263,7 +264,8 @@ def create_app(log):
         return render_template("connect.html",
                                ssid=ssid,
                                password=password,
-                               plate=app.config['PLATE'])
+                               plate=app.config['PLATE']
+                               url=app.config['PLATE_URL'])
 
     @app.route("/img/favicon.ico")
     def favicon():

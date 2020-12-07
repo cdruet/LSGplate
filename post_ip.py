@@ -15,7 +15,7 @@ LOG_PATH = "/var/log/post_ip.log"
 def post_ip(conf, ip, log):
     log.info('Trying to post IP on dedicated webservice')
     try:
-        url = conf.registering_service
+        url = '{}/register'.format(conf.registering_service)
         headers = { 'Content-Type': 'application/json' }
         data = { 'api_key': conf.api_key, 
                  'application': 'lsgplate',

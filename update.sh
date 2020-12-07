@@ -4,6 +4,7 @@ set -e
 # ***** Setting up a few things on the Pi
 sudo apt update
 sudo LANGUAGE=$LANG LC_ALL=$LANG apt upgrade -y
+sudo LANGUAGE=$LANG LC_ALL=$LANG pip3 install pyserial secrets shortuuid netifaces
 
 
 
