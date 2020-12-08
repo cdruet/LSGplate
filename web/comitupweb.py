@@ -264,7 +264,7 @@ def create_app(log):
         return render_template("connect.html",
                                ssid=ssid,
                                password=password,
-                               plate=app.config['PLATE']
+                               plate=app.config['PLATE'],
                                url=app.config['PLATE_URL'])
 
     @app.route("/img/favicon.ico")
