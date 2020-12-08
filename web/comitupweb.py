@@ -115,8 +115,7 @@ def create_app(log):
     app.config['SECRET_KEY'] = data.secret
     app.config['PLATE'] = conf.plate_name
     app.config['PLATE_ID'] = data.id
-    # app.config['PLATE_URL'] = '{}/goto/lsgplate/{}'.format(conf.registering_service, conf.plate_name)
-    app.config['PLATE_URL'] = 'https://webservices.stoachup.be/redirect/local/v1.0/goto/lsgplate/{}'.format(conf.plate_name)
+    app.config['PLATE_URL'] = '{}/goto/lsgplate/{}'.format(conf.registering_service, conf.plate_name)
 
     @app.after_request
     def add_header(response):
