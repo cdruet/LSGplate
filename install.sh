@@ -6,8 +6,8 @@ set -e
 
 # ***** Setting up a few things on the Pi
 sudo sh -c "echo 'Europe/Brussels' > /etc/timezone"
-sudo sed 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/g' /etc/locale.gen
-sudo sed 's/# fr_BE.UTF-8 UTF-8/fr_BE.UTF-8 UTF-8/g' /etc/locale.gen
+sudo sed 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
+sudo sed 's/# fr_BE.UTF-8 UTF-8/fr_BE.UTF-8 UTF-8/' /etc/locale.gen
 sudo LANGUAGE=$LANG LC_ALL=$LANG locale-gen en_GB.UTF-8
 sudo LANGUAGE=$LANG LC_ALL=$LANG update-locale en_GB.UTF-8
 sudo apt update
@@ -33,9 +33,9 @@ sudo LANGUAGE=$LANG LC_ALL=$LANG pip3 install pycairo
 # Configuring
 sudo sh -c "echo 'denyinterfaces wlan0' >> /etc/dhcpcd.conf"
 sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf_orig
-sudo sed -i "s/^.*ap_name: .*\$/ap_name: $1-<nnnn>/g" /etc/comitup.conf
-# sudo sed -i 's/^.*ap_password: .*\$/ap_password: LSGandSGL/g' /etc/comitup.conf
-sudo sed -i 's/^.*web_service: .*\$/web_service: comitup-web.service/g' /etc/comitup.conf
+sudo sed -i "s/^.*ap_name: .*\$/ap_name: $1-<nnnn>/" /etc/comitup.conf
+# sudo sed -i 's/^.*ap_password: .*\$/ap_password: LSGandSGL/' /etc/comitup.conf
+sudo sed -i 's/^.*web_service: .*\$/web_service: comitup-web.service/' /etc/comitup.conf
 
 # Making sure the WiFi interface does never sleep
 sudo iw wlan0 set power_save off
@@ -66,7 +66,7 @@ sudo chown -R pi.pi /home/pi/data
 # Amending and configuring comitup in a different way and
 # deploying LSG plate
 sudo cp /home/pi/lsgplate/lsgplate.conf /etc/lsgplate.conf
-sudo sed -i "s/^.*plate_name: .*\$/plate_name: $1/g" /etc/lsgplate.conf
+sudo sed -i "s/^.*plate_name: .*\$/plate_name: $1/" /etc/lsgplate.conf
 sudo cp /home/pi/lsgplate/helpers.py /usr/share/lsgplate/helpers.py
 sudo cp /home/pi/lsgplate/post_ip.py /usr/share/lsgplate/post_ip.py
 sudo cp /home/pi/lsgplate/send_ip.py /usr/share/lsgplate/send_ip.py
@@ -95,8 +95,8 @@ sudo systemctl start send_ip
 
 
 # ***** Raspberry post-configuration (before reboot)
-sudo sed -i "s/^127\.0\.1\.1.*\$/127.0.1.1\t$1/g" /etc/hosts
-sudo sed -i "s/^.*\$/$1/g" /etc/hostname
+sudo sed -i "s/^127\.0\.1\.1.*\$/127.0.1.1\t$1/" /etc/hosts
+sudo sed -i "s/^.*\$/$1/" /etc/hostname
 
 sudo raspi-config --expand-rootfs
 

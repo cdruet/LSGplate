@@ -10,9 +10,9 @@ sudo LANGUAGE=$LANG LC_ALL=$LANG pip3 install pyserial secrets shortuuid netifac
 
 # ***** Updating Comitup
 # Re-Configuring
-sudo sed -i "s/^.*ap_name: .*\$/ap_name: $HOSTNAME-<nnnn>/g" /etc/comitup.conf
-# sudo sed -i 's/^.*ap_password: .*\$/ap_password: LSGandSGL/g' /etc/comitup.conf
-sudo sed -i 's/^.*web_service: .*\$/web_service: comitup-web.service/g' /etc/comitup.conf
+sudo sed -i "s/^.*ap_name: .*\$/ap_name: $HOSTNAME-<nnnn>/" /etc/comitup.conf
+# sudo sed -i 's/^.*ap_password: .*\$/ap_password: LSGandSGL/' /etc/comitup.conf
+sudo sed -i 's/^.*web_service: .*\$/web_service: comitup-web.service/' /etc/comitup.conf
 
 
 
@@ -20,7 +20,7 @@ sudo sed -i 's/^.*web_service: .*\$/web_service: comitup-web.service/g' /etc/com
 # deploying LSG plate
 echo "Re-configuring LSG plate"
 sudo cp /home/pi/lsgplate/lsgplate.conf /etc/lsgplate.conf
-sudo sed -i "s/^.*plate_name: .*\$/plate_name: $HOSTNAME/g" /etc/lsgplate.conf
+sudo sed -i "s/^.*plate_name: .*\$/plate_name: $HOSTNAME/" /etc/lsgplate.conf
 sudo cp /home/pi/lsgplate/helpers.py /usr/share/lsgplate/helpers.py
 sudo cp /home/pi/lsgplate/post_ip.py /usr/share/lsgplate/post_ip.py
 sudo cp /home/pi/lsgplate/send_ip.py /usr/share/lsgplate/send_ip.py
