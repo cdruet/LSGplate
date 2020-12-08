@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WiFi du Plateau LSG</title>
-    <link rel="icon" href="img/favicon.ico">
+    <link rel="icon" href="{{ url_for('favicon') }}">
     <!-- CSS FILES -->
     <link rel="stylesheet" type="text/css" href="css/uikit.css">
 </head>
@@ -55,5 +55,8 @@
 </div>
 
 <!-- JS FILES -->
-<script src="js/uikit.js"></script>
-<script src="js/uikit-icons.js"></script>
+<script src="{{ url_for('send_js', path='uikit.js') }}"></script>
+<script src="{{ url_for('send_js', path='uikit-icons.js') }}"></script>
+
+</body>
+</html>
